@@ -1,0 +1,15 @@
+# Логи
+*.log
+logs/
+access.log
+
+# Временные файлы
+*.tmp
+*.swp
+*~
+
+# Артефакты 
+dist/
+build/
+target/
+node_modules/
