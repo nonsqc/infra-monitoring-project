@@ -13,3 +13,18 @@ dist/
 build/
 target/
 node_modules/
+
+# Скриншоты и файлы анализа трафика
+bash/
+wireshark/
+docker/
+*.pcapng
+
+# Системные файлы
+.DS_Store
+
+# Локальные секреты и окружение
+.env
+.venv/
+venv/
+__pycache__/
