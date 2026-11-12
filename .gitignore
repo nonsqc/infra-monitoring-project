@@ -14,12 +14,10 @@ build/
 target/
 node_modules/
 
-# Скриншоты и файлы
+# Скриншоты и файлы анализа трафика
 bash/
 wireshark/
-
-# Анализ трафика
-wireshark/
+docker/
 *.pcapng
 
 # Системные файлы

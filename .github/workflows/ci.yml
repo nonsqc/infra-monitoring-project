@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ feature/monitoring ]
+
+jobs:
+  bash-tests:
+    name: Bash Syntax and Monitoring Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Bash syntax check (check_api.sh)
+        run: bash -n check_api.sh
+
+      - name: Bash syntax check (analyze_logs.sh)
+        run: bash -n analyze_logs.sh
+
+      - name: Make scripts executable
+        run: |
+          chmod +x check_api.sh analyze_logs.sh
+
+      - name: Test check_api.sh with HTTP 200
+        run: |
+          ./check_api.sh https://httpbin.org/status/200
+          echo "exit code: $?"
+
+      - name: Test check_api.sh with HTTP 404 (expected failure)
+        run: |
+          if ./check_api.sh https://httpbin.org/status/404; then
+            echo "Expected failure but got success"
+            exit 1
+          else
+            echo "Correctly detected non-200"
+          fi
+
+      - name: Run analyze_logs.sh
+        run: |
+          LINES=300 ./analyze_logs.sh
